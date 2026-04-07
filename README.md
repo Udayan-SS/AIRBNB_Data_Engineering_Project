@@ -9,21 +9,20 @@ The solution demonstrates best practices in data modeling, transformation, and h
 
 ## 🎯 Business Problem
 Airbnb platforms generate large volumes of booking, listing, and host data. Without proper data engineering:
-- Data is inconsistent and unreliable
-- Historical changes are lost
-- Analytics becomes inefficient
+- Data is inconsistent and unreliable  
+- Historical changes are lost  
+- Analytics becomes inefficient  
 
 ### ✅ Solution
 A structured data pipeline that:
-- Cleans and standardizes raw data
-- Tracks historical changes (SCD Type 2)
-- Produces business-ready datasets
+- Cleans and standardizes raw data  
+- Tracks historical changes (SCD Type 2)  
+- Produces business-ready datasets  
 
 ---
 
 ## 🏗️ Architecture
-
-CSV Data → AWS S3 → Snowflake (Staging) → Bronze → Silver → Gold
+CSV Files → AWS S3 → Snowflake (Staging) → Bronze → Silver → Gold  
 
 ### Layers
 - **Bronze** → Raw ingestion  
@@ -33,121 +32,113 @@ CSV Data → AWS S3 → Snowflake (Staging) → Bronze → Silver → Gold
 ---
 
 ## ⚙️ Tech Stack
-- Snowflake (Data Warehouse)
-- dbt (Transformation)
-- AWS S3 (Storage)
-- Python 3.12+
-- Git (Version Control)
+- Snowflake (Data Warehouse)  
+- dbt (Transformation)  
+- AWS S3 (Storage)  
+- Python 3.12+  
+- Git (Version Control)  
 
 ---
 
 ## 📊 Data Model
 
 ### 🥉 Bronze Layer
-- Raw bookings
-- Raw hosts
-- Raw listings
+- Raw bookings  
+- Raw hosts  
+- Raw listings  
 
 ### 🥈 Silver Layer
-- Cleaned bookings
-- Enhanced host data
-- Standardized listings
+- Cleaned bookings  
+- Enhanced host data  
+- Standardized listings  
 
 ### 🥇 Gold Layer
-- Fact table
-- OBT (One Big Table for analytics)
+- Fact table  
+- OBT (One Big Table for analytics)  
 
 ### 📌 Historical Tracking
-- Implemented SCD Type 2 using dbt snapshots
+- Implemented SCD Type 2 using dbt snapshots  
 
 ---
 
 ## 🚀 Key Features
 
-### Incremental Loading
-Processes only new or updated records to improve performance.
-
-### Data Quality Checks
-- Not null tests
-- Unique constraints
-- Referential integrity
-
-### Reusable Macros
-- Price categorization
-- String cleaning utilities
-
-### Dynamic SQL (Jinja)
-- Scalable query generation
-
-### Data Lineage
-- End-to-end visibility using dbt docs
+- **Incremental Loading** → Processes only new/updated records  
+- **Data Quality Checks** → Not null, unique, referential integrity  
+- **Reusable Macros** → Price categorization, string utilities  
+- **Dynamic SQL (Jinja)** → Scalable transformations  
+- **Data Lineage** → End-to-end visibility using dbt docs  
 
 ---
 
 ## 📈 Business Impact
-- Analyze booking trends
-- Optimize pricing strategies
-- Evaluate host performance
-- Enable BI reporting
+- Enables analysis of booking trends and seasonality  
+- Supports pricing optimization strategies  
+- Helps evaluate host performance metrics  
+- Provides clean datasets for BI tools and reporting  
 
 ---
 
 ## 🛠️ Setup Instructions
 
 ### Clone Repository
-bash
-git clone <repo-url>
-cd AWS_DBT_Snowflake
+git clone <repo-url>  
+cd AWS_DBT_Snowflake  
 
-Create Virtual Environment
+### Create Virtual Environment
+python -m venv .venv  
+source .venv/bin/activate   (Linux/Mac)  
+.venv\Scripts\activate      (Windows)  
 
-python -m venv .venv
-source .venv/bin/activate   # Linux/Mac
-.venv\Scripts\activate      # Windows
+### Install Dependencies
+pip install -e .  
 
-Install Dependencies
+### Configure Snowflake
+Update ~/.dbt/profiles.yml with your Snowflake credentials  
 
-pip install -e .
+---
 
-Configure Snowflake
+## ▶️ Run Pipeline
 
-Update ~/.dbt/profiles.yml with your credentials.
+cd aws_dbt_snowflake_project  
 
-▶️ Run Pipeline
+dbt debug      (Test connection)  
+dbt deps       (Install dependencies)  
+dbt build      (Run models, tests, snapshots)  
+dbt docs serve (View lineage & documentation)  
 
-cd aws_dbt_snowflake_project
+---
 
-dbt debug      # Test connection
-dbt deps       # Install packages
-dbt build      # Run models, tests, snapshots
-dbt docs serve # View lineage
+## 📂 Project Structure
 
-📂 Project Structure
+AWS_DBT_Snowflake/  
+├── SourceData/          → Raw CSV files  
+├── DDL/                 → Table creation scripts  
+├── aws_dbt_snowflake_project/  
+│   ├── models/          → Bronze, Silver, Gold layers  
+│   ├── macros/          → Reusable SQL logic  
+│   ├── snapshots/       → SCD Type 2  
+│   ├── tests/           → Data quality checks  
 
-AWS_DBT_Snowflake/
-│
-├── SourceData/
-├── DDL/
-├── aws_dbt_snowflake_project/
-│   ├── models/
-│   │   ├── bronze/
-│   │   ├── silver/
-│   │   ├── gold/
-│   ├── macros/
-│   ├── snapshots/
-│   ├── tests/
+---
 
-🔐 Best Practices
+## 🔐 Best Practices
+- Modular dbt modeling  
+- Incremental pipelines for scalability  
+- Secure credential management  
+- Version-controlled transformations  
 
-Modular dbt models
-Incremental pipelines
-Secure credential management
-Version-controlled transformations
+---
 
-🔮 Future Improvements
+## 🔮 Future Improvements
+- CI/CD pipeline integration  
+- Data quality dashboards  
+- BI integration (Power BI / Tableau)  
+- Monitoring and alerting  
+- Data governance and masking  
 
-CI/CD integration
-Data quality dashboards
-BI tool integration (Power BI/Tableau)
-Monitoring & alerting
-Data governance & masking
+---
+
+## 👤 Author
+Airbnb Data Engineering Project  
+Built using Snowflake, dbt, AWS  
